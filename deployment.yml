@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: github-actions-react
-          image: gcr.io/metro-op-2tier-internal/github-actions-react
+          image: gcr.io/metro-op-2tier-internal/github-actions-react@sha256:45d0c1da1264e2de5a83e584b45d201ad927ac8f15041d800058e441a7f7d7c7
           ports:
             - containerPort: 3000
           resources:

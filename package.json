@@ -5,6 +5,10 @@
   "keywords": [],
   "author": "robin nepomuk mai",
   "license": "gpl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metronom-dx-test/github-actions-react"
+  },
   "publishConfig": {
     "registry":"https://npm.pkg.github.com/"
   },

@@ -2,6 +2,14 @@ name: Node CI
 
 on: [push]
 
+env:
+  GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
+  GKE_ZONE: ${{ secrets.GKE_ZONE }}
+  GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
+  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
+  IMAGE: ${{ secrets.IMAGE }}
+  GITHUB_SHA: ${{ github.sha }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest

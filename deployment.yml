@@ -18,7 +18,7 @@ spec:
         - name: github-actions-react
           image: gcr.io/metro-op-2tier-internal/github-actions-react@sha256:d17e77a7ff6cea1ccf00f8ad13bc1264f8bd570def845ec2c69092e67662320b
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           resources:
             requests:
               cpu: 250m

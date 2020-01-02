@@ -1,6 +1,10 @@
 {
   "name": "foo",
+  "description": "example package",
   "version": "0.1.0",
+  "keywords": [],
+  "author": "robin nepomuk mai",
+  "license": "gpl",
   "publishConfig": {
     "registry":"https://npm.pkg.github.com/"
   },

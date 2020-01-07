@@ -19,9 +19,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Setup github/licensed
-      uses: jonabc/setup-licensed@v1.0.0
-    - run: licensed list
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -69,6 +66,34 @@ jobs:
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/$IMAGE
           kubectl get services -o wide  
+        
+  licensed:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        ref: ${{github.ref}} # checkout branch not SHA
+    - run: npm install --production
+    - name: Run setup-licensed
+      uses: ./
+      with:
+        version: '2.x'
+    - run: licensed cache
+    - name: Push cached file updates
+      run: |
+        git config --global user.name "github/licensed"
+        git config --global user.email "licensed@github.com"
+        git remote set-url origin "https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+        BRANCH="$(echo "$GITHUB_REF" | sed 's,refs/heads/\(.*\),\1,')"
+        git checkout "$BRANCH"
+        git add .licenses
+        if ! git diff-index --quiet HEAD -- .licenses; then
+          git commit -m "Auto-update cached data"
+          git push --set-upstream origin "$BRANCH"
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: licensed status
 
   publish-gpr:
     needs: build
